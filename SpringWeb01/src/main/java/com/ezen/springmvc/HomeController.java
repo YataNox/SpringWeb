@@ -36,4 +36,9 @@ public class HomeController {
 		return "home";
 	}
 	
+	@RequestMapping(value="/main")
+	public String main(Model model) {
+		model.addAttribute("message", "main 화면에 오셨어요");
+		return "main";
+	}
 }
