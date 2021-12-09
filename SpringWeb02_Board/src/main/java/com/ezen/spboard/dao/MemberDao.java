@@ -34,7 +34,7 @@ public class MemberDao {
 			
 			if(rs.next()) {
 				sdto = new SpMember();
-				sdto.setId(rs.getString("id"));
+				sdto.setId(id);
 				sdto.setPw(rs.getString("pw"));
 				sdto.setName(rs.getString("name"));
 				sdto.setEmail(rs.getString("email"));
