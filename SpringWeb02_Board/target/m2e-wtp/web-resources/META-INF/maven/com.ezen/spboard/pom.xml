@@ -143,6 +143,13 @@
 			<version>4.1.6.RELEASE</version>
 		</dependency>
 		
+		<!-- fileUpload -->
+		<dependency>
+			<groupId>servlets.com</groupId>
+			<artifactId>cos</artifactId>
+			<version>05Nov2002</version>
+		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>
