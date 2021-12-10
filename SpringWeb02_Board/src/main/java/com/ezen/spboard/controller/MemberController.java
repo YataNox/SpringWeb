@@ -106,4 +106,12 @@ public class MemberController {
 		return "loginform";
 		// return "redirect:/";
 	}
+	
+	@RequestMapping("/memberEditForm")
+	public String memberEditForm(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginUser") == null)
+			return "loginform";
+		return "member/memberEditForm";
+	}
 }
