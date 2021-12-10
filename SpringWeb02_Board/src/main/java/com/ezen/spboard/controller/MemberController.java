@@ -61,4 +61,18 @@ public class MemberController {
 		
 		return url;
 	}
+	
+	@RequestMapping("/memberJoinForm")
+	public String memberJoinForm(Model model, HttpServletRequest request) {
+		return "member/memberJoinForm";
+	}
+	
+	@RequestMapping("idcheck")
+	public String idcheck(Model model, HttpServletRequest request) {
+		String id = request.getParameter("id");
+		int result = ms.confirmID(id);
+		model.addAttribute("result", result);
+		model.addAttribute("id", id);
+		return "member/idcheck";
+	}
 }

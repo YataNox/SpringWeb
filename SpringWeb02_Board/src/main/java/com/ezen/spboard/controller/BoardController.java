@@ -28,9 +28,4 @@ public class BoardController{
 		// 게시물 조회 후 main.jsp로 이동
 		return "main";
 	}
-	
-	@RequestMapping("/memberJoinForm")
-	public String memberJoinForm(Model model, HttpServletRequest request) {
-		return "member/memberJoinForm";
-	}
 }
