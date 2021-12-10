@@ -97,4 +97,13 @@ public class MemberController {
 			model.addAttribute("message", "회원가입 실패. 다음에 다시 시도하세요.");
 		return "loginform";
 	}
+	
+	@RequestMapping("/logout")
+	public String logout(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		model.addAttribute("message", "로그아웃되었습니다.");
+		return "loginform";
+		// return "redirect:/";
+	}
 }
