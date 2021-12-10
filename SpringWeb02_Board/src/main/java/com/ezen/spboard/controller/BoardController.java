@@ -32,7 +32,7 @@ public class BoardController{
 	@RequestMapping(value="/boardView")
 	public String boardView(Model model, HttpServletRequest request) {
 		String num = request.getParameter("num");
-		SpBoard sb = bs.boardView("num");
+		SpBoard sb = bs.boardView(num);
 		model.addAttribute("board", sb);
 		
 		return "board/boardView";

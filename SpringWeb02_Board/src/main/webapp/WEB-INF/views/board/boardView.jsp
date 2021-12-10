@@ -35,7 +35,7 @@
 					<td width="300" align="center">
 						<c:choose>
 							<c:when test="${empty board.imagename}">
-								<img src="resources/upload/noname.jpg">
+								<img style="width: 250px;" src="resources/upload/noname.jpg">
 							</c:when>
 							<c:otherwise>
 								<img src="resources/upload/${board.imagename}">
