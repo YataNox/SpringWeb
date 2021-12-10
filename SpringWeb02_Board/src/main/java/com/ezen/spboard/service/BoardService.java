@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ezen.spboard.dao.BoardDao;
-import com.ezen.spboard.dao.MemberDao;
 import com.ezen.spboard.dto.SpBoard;
 
 @Service

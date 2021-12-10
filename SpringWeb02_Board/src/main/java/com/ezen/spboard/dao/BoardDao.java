@@ -24,7 +24,7 @@ public class BoardDao {
 	// Board 전체 조회
 	public ArrayList<SpBoard> selectBoard() {
 		ArrayList<SpBoard> list = new ArrayList<SpBoard>();
-		String sql = "select * from spboard order by num desc";
+		String sql = "select * from board order by num desc";
 		con = dbm.getConnection();
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -41,7 +41,7 @@ public class BoardDao {
 				sb.setReadcount(rs.getInt("readcount"));
 				sb.setWritedate(rs.getTimestamp("writedate"));
 				sb.setReplycnt(rs.getInt("replycnt"));
-				sb.setImagename(rs.getString("imagename"));
+				sb.setImagename(rs.getString("imgfilename"));
 				list.add(sb);
 			}
 		}catch(SQLException e) {
