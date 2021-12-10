@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ezen.spboard.dto.ReplyVO;
 import com.ezen.spboard.dto.SpBoard;
 import com.ezen.spboard.util.DataBaseManager;
 
@@ -98,6 +99,33 @@ public class BoardDao {
 		}
 		
 		return sb;
+	}
+
+	public ArrayList<ReplyVO> selectReply(String num) {
+		ArrayList<ReplyVO> list = new ArrayList<ReplyVO>();
+		String sql = "select *  from reply where boardnum = ? order by num desc";
+		con = dbm.getConnection();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(num));
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ReplyVO rvo = new ReplyVO();
+				rvo.setNum(rs.getInt("num"));
+				rvo.setUserid(rs.getString("userid"));
+				rvo.setContent(rs.getString("content"));
+				rvo.setWritedate(rs.getTimestamp("writedate"));
+				rvo.setBoardnum(rs.getInt("boardnum"));
+				list.add(rvo);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			dbm.close(con, pstmt, rs);
+		}
+		return list;
 	}
 	
 }
