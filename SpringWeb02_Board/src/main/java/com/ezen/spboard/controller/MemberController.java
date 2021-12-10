@@ -114,4 +114,24 @@ public class MemberController {
 			return "loginform";
 		return "member/memberEditForm";
 	}
+	
+	@RequestMapping(value="/memberEdit", method=RequestMethod.POST)
+	public String memberEdit(Model model, HttpServletRequest request) {
+		SpMember sm = new SpMember();
+		sm.setId(request.getParameter("id"));
+		sm.setPw(request.getParameter("pw"));
+		sm.setName(request.getParameter("name"));
+		sm.setEmail(request.getParameter("email"));
+		sm.setPhone1(request.getParameter("phone1"));
+		sm.setPhone2(request.getParameter("phone2"));
+		sm.setPhone3(request.getParameter("phone3"));
+		
+		int result = ms.updateMember(sm);
+		// 세션에 새로운 로그인 정보를 다시 저장
+		HttpSession session = request.getSession();
+		if(result == 1)
+			session.setAttribute("loginUser", sm);
+		
+		return "redirect:/main";
+	}
 }
