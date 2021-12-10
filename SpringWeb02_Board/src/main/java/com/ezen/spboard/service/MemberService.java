@@ -21,4 +21,8 @@ public class MemberService {
 		return mdao.confirmID(id);
 	}
 
+	public int insertMember(SpMember sm) {
+		return mdao.insertMember(sm);
+	}
+
 }

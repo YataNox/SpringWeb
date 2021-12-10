@@ -74,4 +74,28 @@ public class MemberDao {
 		return result;
 	}
 
+	public int insertMember(SpMember sm) {
+		int result = 0;
+		con = dbm.getConnection();
+		String sql = "insert into spmember(id, pw, name, email, phone1, phone2, phone3) values(?, ?, ?, ?, ?, ?, ?)";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, sm.getId());
+			pstmt.setString(2, sm.getPw());
+			pstmt.setString(3, sm.getName());
+			pstmt.setString(4, sm.getEmail());
+			pstmt.setString(5, sm.getPhone1());
+			pstmt.setString(6, sm.getPhone2());
+			pstmt.setString(7, sm.getPhone3());
+			
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			dbm.close(con, pstmt, rs);
+		}
+		return result;
+	}
+
 }

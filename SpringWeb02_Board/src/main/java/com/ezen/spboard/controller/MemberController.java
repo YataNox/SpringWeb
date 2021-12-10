@@ -75,4 +75,26 @@ public class MemberController {
 		model.addAttribute("id", id);
 		return "member/idcheck";
 	}
+	
+	@RequestMapping(value="/memberJoin", method=RequestMethod.POST)
+	public String memberJoin(Model model, HttpServletRequest request) {
+		SpMember sm = new SpMember();
+		sm.setId(request.getParameter("id"));
+		sm.setPw(request.getParameter("pw"));
+		sm.setName(request.getParameter("name"));
+		sm.setEmail(request.getParameter("email"));
+		sm.setPhone1(request.getParameter("phone1"));
+		sm.setPhone2(request.getParameter("phone2"));
+		sm.setPhone3(request.getParameter("phone3"));
+		
+		int result = ms.insertMember(sm);
+		
+		// 회원가입 결과 성공여부에 따라서 message 이름으로 "회원가입 성공. 로그인하세요",
+		// "회원가입 실패. 다음에 다시 시도하세요."를 Model에 담아주세요.
+		if(result ==1)
+			model.addAttribute("message", "회원가입 성공. 로그인하세요.");
+		else
+			model.addAttribute("message", "회원가입 실패. 다음에 다시 시도하세요.");
+		return "loginform";
+	}
 }
