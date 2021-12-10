@@ -29,8 +29,9 @@ public class MemberController {
 		if(session.getAttribute("loginUser") == null)
 			return "loginform"; // loginform.jsp 파일로 이동
 		else // 있다면
-			return "main"; // main.jsp파일로 이동
+			return "redirect://main"; // main.jsp파일로 이동
 	}
+	// redirect:/리퀘스트 이름 -> 리퀘스트이름에 해당하는 매핑으로 이동
 	
 	// loginform.jsp에서 로그인시 작동할 Mapping
 	@RequestMapping(value="/login", method=RequestMethod.POST)
@@ -43,7 +44,7 @@ public class MemberController {
 		String pw = request.getParameter("pw");
 		
 		SpMember sdto = ms.getMember(id);
-		
+		// 입력받은 아이디를 조회해서 DB정보와 비교
 		if(sdto == null) {
 			model.addAttribute("message", "id를 확인하세요.");
 		}else if(sdto.getPw() == null) {
@@ -53,7 +54,7 @@ public class MemberController {
 		}else if(sdto.getPw().equals(pw)){
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", sdto);
-			url = "main";
+			url = "redirect:/main";
 		}else {
 			model.addAttribute("message", "알 수 없는 이유로 로그인 실패");
 		}
