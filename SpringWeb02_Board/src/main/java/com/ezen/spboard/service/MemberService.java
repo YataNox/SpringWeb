@@ -17,4 +17,8 @@ public class MemberService {
 		return sdto;
 	}
 
+	public int confirmID(String id) {
+		return mdao.confirmID(id);
+	}
+
 }

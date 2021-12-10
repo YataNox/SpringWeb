@@ -50,4 +50,28 @@ public class MemberDao {
 		return sdto;
 	}
 
+	// 아이디 중복 여부 확인 
+	public int confirmID(String id) {
+		int result = 0;
+		con = dbm.getConnection();
+		String sql = "select * from spmember where id = ?";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result = 1;
+			}else {
+				result = -1;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			dbm.close(con, pstmt, rs);
+		}
+		return result;
+	}
+
 }
