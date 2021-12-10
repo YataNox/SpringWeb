@@ -47,6 +47,41 @@
 			<input type="button" value="게시글 리스트" onclick="location.href='main'">
 			<input type="button" value="게시글 수정" onclick="open_win('boardEditForm?num=${board.num}', 'update')">
 			<input type="button" value="게시글 삭제" onclick="open_win('boardDeleteForm?num=${board.num}', 'delete')">
+		</div><br>
+		
+		<c:set var="now" value="<%=new java.util.Date()%>"></c:set>
+		<div id="wrap" align="center">
+			<form action="addReply" method="post" name="frm2">
+				<input type="hidden" name="boardnum" value="${board.num}">
+				<table>
+					<tr>
+						<th>작성자</th>
+						<th>작성일시</th>
+						<th>내용</th>
+						<th>&nbsp;</th>
+					</tr>
+					<tr align="center">
+						<td width="100">${loginUser.id}<input type="hidden" name="userid" value="${loginUser.id}"></td>
+						<td width="100"><fmt:formatDate value="${now}" pattern="MM/dd HH:mm"/></td>
+						<td width="670"><input type="text" name="reply" size="85"></td>
+						<td width="100"><input type="submit" value="답글작성" onclick="return reply_check();"></td>
+					</tr>
+					<c:forEach var="reply" items="${replyList}">
+						<tr>
+							<td align="center">${reply.userid}</td>
+							<td align="center">
+								<fmt:formatDate value="${reply.writedate}" pattern="MM/dd HH:mm"/>
+							</td>
+							<td>${reply.content}</td>
+							<td align="center">
+								<c:if test="${reply.userid==loginUser.id}">
+									<input type="button" value="삭제" onclick="location.href='deleteReply?num=${reply.num}&boardnum=${reply.boardnum}'">
+								</c:if>&nbsp;
+							</td>
+						</tr>
+					</c:forEach>
+				</table>
+			</form>
 		</div>
 	</body>
 </html>
