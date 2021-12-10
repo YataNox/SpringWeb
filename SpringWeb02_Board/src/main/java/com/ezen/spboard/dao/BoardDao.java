@@ -52,5 +52,52 @@ public class BoardDao {
 		
 		return list;
 	}
+
+	public void plusReadCount(String num) {
+		String sql = "update board set readcount = readcount+1 where num = ?";
+		con = dbm.getConnection();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(num));
+			
+			pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			dbm.close(con, pstmt, rs);
+		}
+	}
+
+	public SpBoard getBoard(String num) {
+		SpBoard sb = new SpBoard();
+		String sql = "select *  from board where num = ?";
+		
+		con = dbm.getConnection();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(num));
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				sb.setNum(rs.getInt("num"));
+				sb.setPass(rs.getString("pass"));
+				sb.setTitle(rs.getString("title"));
+				sb.setUserid(rs.getString("userid"));
+				sb.setEmail(rs.getString("email"));
+				sb.setContent(rs.getString("content"));
+				sb.setImagename(rs.getString("imgfilename"));
+				sb.setWritedate(rs.getTimestamp("writedate"));
+				sb.setReadcount(rs.getInt("readcount"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			dbm.close(con, pstmt, rs);
+		}
+		
+		return sb;
+	}
 	
 }

@@ -19,4 +19,9 @@ public class BoardService {
 		return list;
 	}
 
+	public SpBoard boardView(String num) {
+		bdao.plusReadCount(num);
+		return bdao.getBoard(num);
+	}
+
 }

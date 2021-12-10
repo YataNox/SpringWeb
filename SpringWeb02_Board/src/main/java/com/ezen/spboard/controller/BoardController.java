@@ -28,4 +28,13 @@ public class BoardController{
 		// 게시물 조회 후 main.jsp로 이동
 		return "main";
 	}
+	
+	@RequestMapping(value="/boardView")
+	public String boardView(Model model, HttpServletRequest request) {
+		String num = request.getParameter("num");
+		SpBoard sb = bs.boardView("num");
+		model.addAttribute("board", sb);
+		
+		return "board/boardView";
+	}
 }
