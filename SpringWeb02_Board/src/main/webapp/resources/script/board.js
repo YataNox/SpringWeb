@@ -51,3 +51,22 @@ function joinCheck(){
 	}
 	
 }
+
+function editCheck(){
+	if(document.frm.name.value.length==0){
+		alert("이름을 써주세요.");
+		document.frm.name.focus();
+		return false;
+	}else if(document.frm.pw.value==""){
+		alert("암호는 반드시 입력하여야 합니다.");
+		document.frm.pw.focus();
+		return false;
+	}else if(document.frm.pw.value != document.frm.pw_check.value){
+		alert("암호가 일치하지 않습니다.");
+		document.frm.pw_check.focus();
+		return false;
+	}else{
+		return true;
+	}
+	
+}
