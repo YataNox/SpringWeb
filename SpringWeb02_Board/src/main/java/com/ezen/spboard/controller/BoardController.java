@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ezen.spboard.dto.ReplyVO;
 import com.ezen.spboard.dto.SpBoard;
 import com.ezen.spboard.service.BoardService;
 
@@ -34,6 +35,9 @@ public class BoardController{
 		String num = request.getParameter("num");
 		SpBoard sb = bs.boardView(num);
 		model.addAttribute("board", sb);
+		
+		ArrayList<ReplyVO> list = bs.selectReply(num);
+		model.addAttribute("replyList", list);
 		
 		return "board/boardView";
 	}
