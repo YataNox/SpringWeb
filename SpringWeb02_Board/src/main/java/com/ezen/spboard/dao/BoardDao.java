@@ -127,5 +127,23 @@ public class BoardDao {
 		}
 		return list;
 	}
+
+	public void appReply(ReplyVO rvo) {
+		String sql = "insert into reply(num, boardnum, userid, content) "
+				+ "values(reply_seq.nextVal, ?, ?, ?)";
+		con = dbm.getConnection();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, rvo.getBoardnum());
+			pstmt.setString(2, rvo.getUserid());
+			pstmt.setString(3, rvo.getContent());
+			pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			dbm.close(con, pstmt, rs);
+		}
+	}
 	
 }

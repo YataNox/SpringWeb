@@ -29,4 +29,12 @@ public class BoardService {
 		return bdao.selectReply(num);
 	}
 
+	public void addReply(ReplyVO rvo) {
+		bdao.appReply(rvo);
+	}
+
+	public SpBoard getBoard(String num) {
+		return bdao.getBoard(num);
+	}
+
 }

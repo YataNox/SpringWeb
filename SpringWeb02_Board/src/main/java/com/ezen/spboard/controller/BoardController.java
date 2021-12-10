@@ -41,4 +41,27 @@ public class BoardController{
 		
 		return "board/boardView";
 	}
+	
+	@RequestMapping(value="/addReply")
+	public String addReply(Model model, HttpServletRequest request) {
+		String boardnum = request.getParameter("boardnum");
+		
+		ReplyVO rvo = new ReplyVO();
+		rvo.setUserid(request.getParameter("userid"));
+		rvo.setContent(request.getParameter("reply"));
+		rvo.setBoardnum(Integer.parseInt(boardnum));
+		
+		bs.addReply(rvo);
+		return "redirect:/boardViewWithoutcount?num=" + boardnum;
+	}
+	
+	@RequestMapping(value="/boardViewWithoutcount")
+	public String boardViewWithoutcount(Model model, HttpServletRequest request) {
+		String num = request.getParameter("num");
+		SpBoard sb = bs.getBoard(num);
+		model.addAttribute("board", sb);
+		ArrayList<ReplyVO> list = bs.selectReply(num);
+		model.addAttribute("replyList", list);
+		return "board/boardView";
+	}
 }
