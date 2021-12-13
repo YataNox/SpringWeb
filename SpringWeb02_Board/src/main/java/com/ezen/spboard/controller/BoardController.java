@@ -1,7 +1,9 @@
 package com.ezen.spboard.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ezen.spboard.dto.ReplyVO;
 import com.ezen.spboard.dto.SpBoard;
 import com.ezen.spboard.service.BoardService;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 @Controller
 public class BoardController{
@@ -22,6 +26,10 @@ public class BoardController{
 	// Controller에서 Service의 메소드 호출 -> Service의 메소드에서 Dao의 메소드 호출
 	// Dao의 메소드에서 Service의 메소드로 리턴 -> Service 메소드들에서 Controller 메소드로 리턴
 	// 리턴받은 내용을 model에 싣고, ~.jsp로 이동
+	
+	@Autowired
+	ServletContext context; // Session을 통하지 않고, 스프링 컨테이너에 있는 빈으로 가져다씁니다.
+	
 	@RequestMapping(value="/main")
 	public String main(Model model, HttpServletRequest request) {
 		
@@ -81,6 +89,24 @@ public class BoardController{
 		HttpSession session = request.getSession();
 		if(session.getAttribute("loginUser") == null)
 			url = "loginform";
-		return "url";
+		return url;
+	}
+	
+	@RequestMapping(value="/boardWrite")
+	public String board_write(Model model, HttpServletRequest request) {
+		// HttpSession session = request.getSession();
+		// ServletContext context = session.getServletContext();
+		// session을 거치지않고 스프링 컨테이너에 있는 빈형태의 ServletContext를 가져다씁니다.
+		String path = context.getRealPath("resources/upload");
+		
+		try {
+			MultipartRequest multi = new MultipartRequest(request, path, 1024*1024*5, "UTF-8", new DefaultFileRenamePolicy());
+			
+			
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/main";
 	}
 }
