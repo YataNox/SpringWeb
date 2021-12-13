@@ -35,13 +35,39 @@
 				<c:forEach var="board" items="${boardList}">
 					<tr>
 						<td align="center">${board.num}</td>
-						<td><a href="boardView?num=${board.num}">${board.title}</a></td>
+						<td>
+							<a href="boardView?num=${board.num}">${board.title}</a>
+							<c:if test="${board.replycnt>0}">
+								<span style="color: red; font-weight: bold;">[${board.replycnt}]</span>
+							</c:if>
+						</td>
 						<td align="center">${board.userid}</td>
 						<td align="center"><fmt:formatDate value="${board.writedate}"/></td>
 						<td align="center">${board.readcount}</td>	
 					</tr>
 				</c:forEach>
-			</table>
+			</table><br><br>
+			
+			<div id="paging" align="center" style="font-size: 110%;">
+				<c:url var="aciton" value="main"/>
+				<c:if test="${paging.prev}">
+					<a href="${action}?page=${paging.beginPage-1}">◀</a>&nbsp;
+				</c:if>
+				<c:forEach begin="${paging.beginPage}" end="${paging.endPage}" var="index">
+					<c:choose>
+						<c:when test="${paging.page==index}">
+							<span style="color: red; font-weight: bold">${index}&nbsp;</span>
+						</c:when>
+						<c:otherwise>
+							<a href="${action}?page=${index}">${index}</a>&nbsp;
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<c:if test="${paging.next}">
+					<a href="${action}?page=${paging.endPage+1}">▶</a>&nbsp;
+				</c:if>
+			</div>
+			
 		</div>
 	</body>
 </html>

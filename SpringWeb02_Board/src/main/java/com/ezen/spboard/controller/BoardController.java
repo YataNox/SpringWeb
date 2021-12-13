@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ezen.spboard.dto.Paging;
 import com.ezen.spboard.dto.ReplyVO;
 import com.ezen.spboard.dto.SpBoard;
 import com.ezen.spboard.service.BoardService;
@@ -32,9 +33,32 @@ public class BoardController{
 	
 	@RequestMapping(value="/main")
 	public String main(Model model, HttpServletRequest request) {
-		
-		ArrayList<SpBoard> list = bs.selectBoard();
-		model.addAttribute("boardList", list);
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginUser") == null)
+			return "loginform";
+		else {
+			int page = 1;
+			
+			if(request.getParameter("page") != null){
+				page = Integer.parseInt(request.getParameter("page"));
+				session.setAttribute("page", page);
+			}else if(session.getAttribute("page") != null) {
+				page = (int)session.getAttribute("page");
+			}else {
+				page = 1;
+				session.removeAttribute("page");
+			}
+			
+			Paging paging = new Paging();
+			paging.setPage(page);
+			
+			int count = bs.getAllCount();
+			paging.setTotalCount(count);
+			
+			ArrayList<SpBoard> list = bs.selectBoard(paging);
+			model.addAttribute("boardList", list);
+			model.addAttribute("paging", paging);
+		}
 		// 게시물 조회 후 main.jsp로 이동
 		return "main";
 	}

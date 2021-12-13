@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ezen.spboard.dto.Paging;
 import com.ezen.spboard.dto.ReplyVO;
 import com.ezen.spboard.dto.SpBoard;
 import com.ezen.spboard.util.DataBaseManager;
@@ -23,12 +24,20 @@ public class BoardDao {
 	DataBaseManager dbm;
 
 	// Board 전체 조회
-	public ArrayList<SpBoard> selectBoard() {
+	public ArrayList<SpBoard> selectBoard(Paging paging) {
 		ArrayList<SpBoard> list = new ArrayList<SpBoard>();
-		String sql = "select * from board order by num desc";
+		/* String sql = "select * from board order by num desc"; */
+		String sql = "select * from ("
+				+ "select * from ("
+				+ "select rownum as rn, B.* from "
+				+ "((select * from board order by num desc) B)"
+				+ ") where rn >= ?"
+				+ ") where rn <= ?";
 		con = dbm.getConnection();
 		try {
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, paging.getStartNum());
+			pstmt.setInt(2, paging.getEndNum());
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -43,6 +52,18 @@ public class BoardDao {
 				sb.setWritedate(rs.getTimestamp("writedate"));
 				sb.setReplycnt(rs.getInt("replycnt"));
 				sb.setImagename(rs.getString("imgfilename"));
+				
+				String sql2 = "select count(*) as cnt from reply where boardnum=?";
+				int num = rs.getInt("num");
+				pstmt = con.prepareStatement(sql2);
+				pstmt.setInt(1, num);
+				ResultSet rs2 = pstmt.executeQuery();
+				if(rs2.next())
+					sb.setReplycnt(rs2.getInt("cnt"));
+				else
+					sb.setReplycnt(0);
+				
+				rs2.close();
 				list.add(sb);
 			}
 		}catch(SQLException e) {
@@ -50,7 +71,6 @@ public class BoardDao {
 		}finally {
 			dbm.close(con, pstmt, rs);
 		}
-		
 		return list;
 	}
 
@@ -216,6 +236,27 @@ public class BoardDao {
 		}finally {
 			dbm.close(con, pstmt, rs);
 		}
+	}
+
+	public int getAllCount() {
+		int count = 0;
+		String sql = "select count(*) as count from board";
+		con = dbm.getConnection();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){
+				count = rs.getInt("count");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			dbm.close(con, pstmt, rs);
+		}
+		
+		return count;
 	}
 	
 }

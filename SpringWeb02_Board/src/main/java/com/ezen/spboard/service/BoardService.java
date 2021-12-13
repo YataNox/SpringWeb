@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ezen.spboard.dao.BoardDao;
+import com.ezen.spboard.dto.Paging;
 import com.ezen.spboard.dto.ReplyVO;
 import com.ezen.spboard.dto.SpBoard;
 
@@ -14,8 +15,8 @@ public class BoardService {
 	@Autowired
 	BoardDao bdao;
 	
-	public ArrayList<SpBoard> selectBoard(){
-		ArrayList<SpBoard> list = bdao.selectBoard();
+	public ArrayList<SpBoard> selectBoard(Paging paging){
+		ArrayList<SpBoard> list = bdao.selectBoard(paging);
 		
 		return list;
 	}
@@ -51,6 +52,10 @@ public class BoardService {
 
 	public void deleteBoard(String num) {
 		bdao.deleteBoard(num);
+	}
+
+	public int getAllCount() {
+		return bdao.getAllCount();
 	}
 
 }
