@@ -19,7 +19,7 @@
 					</tr>
 					<tr>
 						<th>비밀번호</th>
-						<td><input type="password" name="ps"> * 필수(수정 삭제시 필요합니다.)</td>
+						<td><input type="password" name="pw"> * 필수(수정 삭제시 필요합니다.)</td>
 					</tr>
 					<tr>
 						<th>이메일</th>
