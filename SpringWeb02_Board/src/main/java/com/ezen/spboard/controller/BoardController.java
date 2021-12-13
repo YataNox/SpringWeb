@@ -117,4 +117,11 @@ public class BoardController{
 		
 		return "redirect:/main";
 	}
+	
+	@RequestMapping(value="/boardEditForm")
+	public String board_edit_form(Model model, HttpServletRequest request) {
+		String num = request.getParameter("num");
+		model.addAttribute("num", num);
+		return "board/boardCheckPassForm";
+	}
 }
