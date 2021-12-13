@@ -64,4 +64,13 @@ public class BoardController{
 		model.addAttribute("replyList", list);
 		return "board/boardView";
 	}
+	
+	@RequestMapping(value="/deleteReply")
+	public String reply_delete(Model model, HttpServletRequest request) {
+		String num = request.getParameter("num");
+		String boardnum = request.getParameter("boardnum");
+		
+		bs.deleteReply(num);
+		return "redirect:/boardViewWithoutcount?num=" + boardnum;
+	}
 }

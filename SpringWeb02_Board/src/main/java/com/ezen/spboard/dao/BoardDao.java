@@ -145,5 +145,20 @@ public class BoardDao {
 			dbm.close(con, pstmt, rs);
 		}
 	}
+
+	public void deleteReply(String num) {
+		String sql = "delete from reply where num = ?";
+		con = dbm.getConnection();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, Integer.parseInt(num));
+			pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			dbm.close(con, pstmt, rs);
+		}
+	}
 	
 }

@@ -37,4 +37,8 @@ public class BoardService {
 		return bdao.getBoard(num);
 	}
 
+	public void deleteReply(String num) {
+		bdao.deleteReply(num);
+	}
+
 }
