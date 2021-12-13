@@ -124,4 +124,19 @@ public class BoardController{
 		model.addAttribute("num", num);
 		return "board/boardCheckPassForm";
 	}
+	
+	@RequestMapping(value="/boardEdit")
+	public String board_edit(Model model, HttpServletRequest request) {
+		String num = request.getParameter("num");
+		String pass = request.getParameter("pass");
+		
+		SpBoard sb = bs.getBoard(num);
+		model.addAttribute("num", num);
+		if(pass.equals(sb.getPass())) {
+			return "board/boardCheckPass";
+		}else {
+			model.addAttribute("message", "비밀번호가 맞지 않습니다. 확인해주세요.");
+			return "board/boardCheckPassForm";
+		}
+	}
 }
