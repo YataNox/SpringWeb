@@ -11,7 +11,7 @@
 	</head>
 	<body>
 		<div id="wrap" align="center">
-			<form action="boardWrite" name="frm" method="post" enctype="multipart/form-date">
+			<form action="boardWrite" name="frm" method="post" enctype="multipart/form-data">
 				<table>
 					<tr>
 						<th>작성자</th>

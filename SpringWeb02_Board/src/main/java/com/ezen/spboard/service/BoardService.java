@@ -41,4 +41,8 @@ public class BoardService {
 		bdao.deleteReply(num);
 	}
 
+	public void insertBoard(SpBoard sb) {
+		bdao.insertBoard(sb);
+	}
+
 }

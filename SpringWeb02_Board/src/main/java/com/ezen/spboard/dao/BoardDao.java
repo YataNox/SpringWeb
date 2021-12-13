@@ -160,5 +160,26 @@ public class BoardDao {
 			dbm.close(con, pstmt, rs);
 		}
 	}
+
+	public void insertBoard(SpBoard sb) {
+		String sql = "insert into board(num, pass, userid, email, title, content, imgfilename) "
+				+ "values(board_seq.nextVal, ?, ?, ?, ?, ?, ?)";
+		con = dbm.getConnection();
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, sb.getPass());
+			pstmt.setString(2, sb.getUserid());
+			pstmt.setString(3, sb.getEmail());
+			pstmt.setString(4, sb.getTitle());
+			pstmt.setString(5, sb.getContent());
+			pstmt.setString(6, sb.getImagename());
+			pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			dbm.close(con, pstmt, rs);
+		}
+	}
 	
 }

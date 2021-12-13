@@ -102,7 +102,15 @@ public class BoardController{
 		try {
 			MultipartRequest multi = new MultipartRequest(request, path, 1024*1024*5, "UTF-8", new DefaultFileRenamePolicy());
 			
+			SpBoard sb = new SpBoard();
+			sb.setPass(multi.getParameter("pw"));
+			sb.setUserid(multi.getParameter("userid"));
+			sb.setEmail(multi.getParameter("email"));
+			sb.setTitle(multi.getParameter("title"));
+			sb.setContent(multi.getParameter("content"));
+			sb.setImagename(multi.getParameter("imgfilename"));
 			
+			bs.insertBoard(sb);
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
