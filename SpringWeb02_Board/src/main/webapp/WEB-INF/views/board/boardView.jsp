@@ -38,7 +38,7 @@
 								<img style="width: 250px;" src="resources/upload/noname.jpg">
 							</c:when>
 							<c:otherwise>
-								<img src="resources/upload/${board.imagename}">
+								<img style="width: 250px;" src="resources/upload/${board.imagename}">
 							</c:otherwise>
 						</c:choose>
 					</td>

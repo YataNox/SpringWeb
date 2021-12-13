@@ -12,7 +12,8 @@
 	<body>
 		<div id="wrap" align="center">
 			<h1>게시글 수정</h1>
-			<form action="boardUpdate" name="frm" method="post" enctype="multipart-form-data">
+			<form action="boardUpdate" name="frm" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="num" value="${num}">
 				<table>
 					<tr>
 						<th>작성자</th>
@@ -37,6 +38,7 @@
 					<tr>
 						<th>이미지</th>
 						<td>
+							<img src="resources/upload/${board.imagename}" style="height: 50px;"><br>
 							<input type="file" name="imagename"><br>파일을 수정하고자 할때만 선택하세요.
 							<input type="hidden" name="oldfilename" value="${board.imagename}">
 						</td>

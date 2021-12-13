@@ -149,4 +149,30 @@ public class BoardController{
 		return"board/boardEditForm";
 	}
 			
+	@RequestMapping(value="/boardUpdate")
+	public String board_update(Model model, HttpServletRequest request) {
+		String savePath = context.getRealPath("resources/upload");
+		SpBoard sb = new SpBoard();
+		int num = 0;
+		
+		try {
+			MultipartRequest multi = new MultipartRequest(request, savePath, 5*1024*1024, "UTF-8", new DefaultFileRenamePolicy());
+			
+			num = Integer.parseInt(multi.getParameter("num"));
+			sb.setNum(num);
+			sb.setPass(multi.getParameter("pass"));
+			sb.setUserid(multi.getParameter("userid"));
+			sb.setEmail(multi.getParameter("email"));
+			sb.setTitle(multi.getParameter("title"));
+			sb.setContent(multi.getParameter("content"));
+			String filename = multi.getFilesystemName("imagename");
+			if(filename == null) 
+				filename = multi.getParameter("oldfilename");
+			sb.setImagename(filename);
+			bs.updateBoard(sb);
+		}catch(IOException e){
+			e.printStackTrace();
+		}
+		return"redirect:/boardViewWithoutcount?num=" + num;
+	}
 }

@@ -45,4 +45,8 @@ public class BoardService {
 		bdao.insertBoard(sb);
 	}
 
+	public void updateBoard(SpBoard sb) {
+		bdao.updateBoard(sb);
+	}
+
 }
