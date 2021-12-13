@@ -80,7 +80,7 @@
 							</td>
 						</tr>
 					</c:forEach>
-				</table>
+				</table><br><br><br>
 			</form>
 		</div>
 	</body>
