@@ -70,3 +70,31 @@ function editCheck(){
 	}
 	
 }
+
+function reply_check(){
+	if(document.frm.reply.value.length == 0){
+		alert("댓글을 입력해주세요.");
+		document.frm.reply.focus();
+		return false;
+	}else{
+		return true;
+	}
+}
+
+function boardCheck(){
+	if(document.frm.pw.value.length == 0){
+		alert("비밀번호를 적어주세요. 수정 삭제시 사용됩니다.");
+		document.frm.pw.focus();
+		return false;
+	}else if(document.frm.title.value.length == 0){
+		alert("게시물의 제목을 적어주세요.");
+		document.frm.title.focus();
+		return false;
+	}else if(document.frm.content.value.length == 0){
+		alert("게시물의 내용을 적어주세요.");
+		document.frm.content.focus();
+		return false;
+	}else{
+		return true;
+	}
+}
