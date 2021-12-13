@@ -204,7 +204,7 @@ public class BoardDao {
 	}
 
 	public void deleteBoard(String num) {
-		String sql = "delete form board where num = ?";
+		String sql = "delete from board where num = ?";
 		con = dbm.getConnection();
 		
 		try {
