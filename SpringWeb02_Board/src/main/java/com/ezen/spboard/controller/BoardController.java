@@ -108,7 +108,7 @@ public class BoardController{
 			sb.setEmail(multi.getParameter("email"));
 			sb.setTitle(multi.getParameter("title"));
 			sb.setContent(multi.getParameter("content"));
-			sb.setImagename(multi.getParameter("imgfilename"));
+			sb.setImagename(multi.getFilesystemName("imagename"));
 			
 			bs.insertBoard(sb);
 		}catch(IOException e) {
