@@ -139,4 +139,14 @@ public class BoardController{
 			return "board/boardCheckPassForm";
 		}
 	}
+	
+	@RequestMapping(value="/boardUpdateForm")
+	public String board_update_form(Model model, HttpServletRequest request) {
+		String num = request.getParameter("num");
+		SpBoard sb = bs.getBoard(num);
+		model.addAttribute("num", num);
+		model.addAttribute("board", sb);
+		return"board/boardEditForm";
+	}
+			
 }
