@@ -175,4 +175,20 @@ public class BoardController{
 		}
 		return"redirect:/boardViewWithoutcount?num=" + num;
 	}
+	
+	@RequestMapping(value="boardDeleteForm")
+	public String board_delete_form(Model model, HttpServletRequest request) {
+		String num = request.getParameter("num");
+		SpBoard sb = bs.getBoard(num);
+		model.addAttribute("num", num);
+		model.addAttribute("board", sb);
+		return"board/boardCheckPassForm";
+	}
+	
+	@RequestMapping(value="boardDelete")
+	public String board_delete(Model model, HttpServletRequest request) {
+		String num = request.getParameter("num");
+		bs.deleteBoard(num);
+		return"redirect:/main";
+	}
 }

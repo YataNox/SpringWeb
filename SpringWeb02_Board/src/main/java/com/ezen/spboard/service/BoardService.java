@@ -49,4 +49,8 @@ public class BoardService {
 		bdao.updateBoard(sb);
 	}
 
+	public void deleteBoard(String num) {
+		bdao.deleteBoard(num);
+	}
+
 }
