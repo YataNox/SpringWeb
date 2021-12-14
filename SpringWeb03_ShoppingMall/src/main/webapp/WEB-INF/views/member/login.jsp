@@ -12,6 +12,7 @@
 			<legend>LogIn</legend>
 			<label>User ID</label><input name="id" type="text"><br>
 			<label>Password</label><input name="pwd" type="text"><br>
+			<label>${message}</label>
 		</fieldset>
 		<div id="buttons">
 			<input type="submit" value="로그인" class="submit" onclick="return loginCheck();">

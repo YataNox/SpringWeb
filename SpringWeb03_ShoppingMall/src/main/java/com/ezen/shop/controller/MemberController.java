@@ -38,7 +38,7 @@ public class MemberController {
 		}else if(!mvo.getPwd().equals(pwd)) {
 			model.addAttribute("message", "비밀번호가 맞지 않습니다.");
 			return "member/login";
-		}else if(mvo.getPwd() == null) {
+		}else if(mvo.getPwd().equals(pwd)) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", mvo);
 			return "redirect:/";

@@ -40,7 +40,7 @@ private JdbcTemplate template;
 				mvo.setUseyn(rs.getString("useyn"));
 				mvo.setIndate(rs.getTimestamp("indate"));
 				return mvo;
-			}// pvo는 list로 리턴되어 하나씩 하나씩 쌓입니다.
+			}
 		}, id);
 		
 		if(list.size() == 0) {
