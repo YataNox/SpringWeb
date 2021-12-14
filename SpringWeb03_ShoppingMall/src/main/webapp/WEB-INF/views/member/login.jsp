@@ -21,3 +21,5 @@
 		</div>
 	</form>
 </article>
+
+<%@ include file="/resources/headerfooter/footer.jsp"%>

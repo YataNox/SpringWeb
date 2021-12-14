@@ -59,4 +59,25 @@ private JdbcTemplate template;
 		// 8. List가 아닌 단일 Dto로 리턴되어야 한다면 list.get(0)을 리턴합니다.
 		// 		단 리턴 값이 null일 경우 if로 처리합니다.
 	}
+
+	public int confirmID(String id) {
+		int result = 1;
+		String sql = "select * from member where id = ?";
+		
+		List<MemberVO> list = template.query(sql, new RowMapper<MemberVO>(){
+			@Override
+			public MemberVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				MemberVO mvo = new MemberVO();
+				mvo.setId(rs.getString("id"));
+				return mvo;
+			}
+		}, id);
+		
+		if(list.size() == 0) {
+			result = -1; // 사용가능
+			return result;
+		}else { // 사용 불가능
+			return result;
+		}
+	}
 }

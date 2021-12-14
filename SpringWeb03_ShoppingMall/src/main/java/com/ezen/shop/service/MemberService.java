@@ -14,4 +14,8 @@ public class MemberService {
 	public MemberVO getMember(String id) {
 		return mdao.getMember(id);
 	}
+
+	public int confirmID(String id) {
+		return mdao.confirmID(id);
+	}
 }

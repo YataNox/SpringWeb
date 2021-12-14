@@ -47,4 +47,30 @@ public class MemberController {
 			return "member/login";
 		}
 	}
+	
+	@RequestMapping(value="/contract")
+	public String contract(Model model, HttpServletRequest request) {
+		return "member/contract";
+	}
+	
+	@RequestMapping(value="/logout")
+	public String logout(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.removeAttribute("loginUser");
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/joinForm", method=RequestMethod.POST)
+	public String join_form(Model model, HttpServletRequest request) {
+		return "member/joinForm";
+	}
+	
+	@RequestMapping(value="/idCheckForm")
+	public String id_check_form(Model model, HttpServletRequest request) {
+		String id = request.getParameter("id");
+		int result = ms.confirmID(id);
+		model.addAttribute("result", result);
+		model.addAttribute("id", id);
+		return "member/idcheck";
+	}
 }
