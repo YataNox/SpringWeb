@@ -108,4 +108,11 @@ private JdbcTemplate template;
 		template.update(sql, mvo.getId(), mvo.getPwd(), mvo.getName(), mvo.getEmail(), 
 				mvo.getZip_num(), mvo.getAddress(), mvo.getPhone());
 	}
+
+	public void updateMember(MemberVO mvo) {
+		String sql = "update member set pwd=?, name=?, email=?, zip_num=?, address=?, phone=? where id=?";
+		
+		template.update(sql, mvo.getPwd(), mvo.getName(), mvo.getEmail(), 
+				mvo.getZip_num(), mvo.getAddress(), mvo.getPhone(), mvo.getId());
+	}
 }

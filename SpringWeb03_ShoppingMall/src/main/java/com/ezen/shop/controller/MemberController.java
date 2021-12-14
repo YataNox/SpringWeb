@@ -122,5 +122,19 @@ public class MemberController {
 		return "member/memberUpdateForm";
 	}
 	
-	
+	@RequestMapping(value="/memberUpdate")
+	public String member_update(Model model, HttpServletRequest request) {
+		MemberVO mvo = new MemberVO();
+		mvo.setId(request.getParameter("id"));
+		mvo.setPwd(request.getParameter("pwd"));
+		mvo.setName(request.getParameter("name"));
+		mvo.setEmail(request.getParameter("email"));
+		mvo.setPhone(request.getParameter("phone"));
+		mvo.setZip_num(request.getParameter("zip_num"));
+		mvo.setAddress(request.getParameter("addr1") + " " + request.getParameter("addr2"));
+		ms.updateMember(mvo);
+		HttpSession session = request.getSession();
+		session.setAttribute("loginUser", mvo);
+		return "redirect:/";
+	}
 }

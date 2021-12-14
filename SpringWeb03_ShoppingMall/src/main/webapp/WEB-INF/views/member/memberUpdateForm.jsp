@@ -8,7 +8,7 @@
 
 <article>
 	<h2>Edit Profile</h2>
-	<form method="post" name="joinForm" action="memberUpdate">
+	<form method="post" name="formm" action="memberUpdate">
 		<fieldset>
 			<legend>Basic Info</legend>
 			<label>User ID</label><input type="text" name="id" value="${member.id}" readonly="readonly"><br>
