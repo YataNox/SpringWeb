@@ -1,5 +1,7 @@
 package com.ezen.shop.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -9,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ezen.shop.dto.AddressVO;
 import com.ezen.shop.dto.MemberVO;
 import com.ezen.shop.service.MemberService;
 
@@ -72,5 +75,17 @@ public class MemberController {
 		model.addAttribute("result", result);
 		model.addAttribute("id", id);
 		return "member/idcheck";
+	}
+	
+	@RequestMapping(value="/findZipNum")
+	public String find_zip(Model model, HttpServletRequest request) {
+		String dong = request.getParameter("dong");
+		
+		if(dong != null && dong.trim().equals("") == false) {
+			// List<AddressVO> addressList = ms.selectAddressByDong(dong);
+			model.addAttribute("addressList", ms.selectAddressByDong(dong));
+		}
+		
+		return "member/findZipNum";
 	}
 }

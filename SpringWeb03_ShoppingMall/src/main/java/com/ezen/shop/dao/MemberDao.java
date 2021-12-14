@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.ezen.shop.dto.AddressVO;
 import com.ezen.shop.dto.MemberVO;
 import com.ezen.shop.dto.ProductVO;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
@@ -79,5 +80,25 @@ private JdbcTemplate template;
 		}else { // 사용 불가능
 			return result;
 		}
+	}
+
+	public List<AddressVO> selectAddressByDong(String dong) {
+		String sql = "select * from address where dong like '%'||?||'%'";
+		
+		List<AddressVO> list = template.query(sql, new RowMapper<AddressVO>(){
+			@Override
+			public AddressVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				AddressVO avo = new AddressVO();
+				avo.setSido(rs.getString("sido"));
+				avo.setGugun(rs.getString("gugun"));
+				avo.setDong(rs.getString("dong"));
+				avo.setBunji(rs.getString("bunji"));
+				avo.setZip_code(rs.getString("zip_code"));
+				avo.setZip_num(rs.getString("zip_num"));
+				return avo;
+			}
+		}, dong);
+		
+		return list;
 	}
 }
