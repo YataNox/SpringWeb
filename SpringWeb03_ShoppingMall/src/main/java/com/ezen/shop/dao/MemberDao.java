@@ -101,4 +101,11 @@ private JdbcTemplate template;
 		
 		return list;
 	}
+
+	public void insertMember(MemberVO mvo) {
+		String sql = "insert into member(id, pwd, name, email, zip_num, address, phone) values(?, ?, ?, ?, ?, ?, ?)";
+		
+		template.update(sql, mvo.getId(), mvo.getPwd(), mvo.getName(), mvo.getEmail(), 
+				mvo.getZip_num(), mvo.getAddress(), mvo.getPhone());
+	}
 }

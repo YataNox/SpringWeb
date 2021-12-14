@@ -25,4 +25,8 @@ public class MemberService {
 	public List<AddressVO> selectAddressByDong(String dong) {
 		return mdao.selectAddressByDong(dong);
 	}
+
+	public void insertMember(MemberVO mvo) {
+		mdao.insertMember(mvo);
+	}
 }
