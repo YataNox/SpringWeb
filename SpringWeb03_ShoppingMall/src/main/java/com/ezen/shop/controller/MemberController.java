@@ -103,4 +103,24 @@ public class MemberController {
 		ms.insertMember(mvo);
 		return "member/login";
 	}
+	
+	@RequestMapping(value="/memberEditForm")
+	public String member_Edit_Form(Model model, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO)session.getAttribute("loginUser");
+		String addr = mvo.getAddress();
+		int k1 = addr.indexOf(" ");
+		int k2 = addr.indexOf(" ", k1 + 1);
+		int k3 = addr.indexOf(" ", k2 + 1);
+		
+		String addr1 = addr.substring(0, k3);
+		String addr2 = addr.substring(k3+1);
+		model.addAttribute("member", mvo);
+		model.addAttribute("addr1", addr1);
+		model.addAttribute("addr2", addr2);
+		
+		return "member/memberUpdateForm";
+	}
+	
+	
 }
