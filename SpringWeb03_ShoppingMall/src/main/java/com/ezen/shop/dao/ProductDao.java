@@ -15,13 +15,19 @@ public class ProductDao {
 	// template에 초기화해줘야 합니다.
 	
 	// 스프링 컨테이너에 수동으로 넣어놓은 DBCP 클래스를 꺼내옵니다.
-	@Autowired
-	ComboPooledDataSource dataSource;
+	// @Autowired
+	// ComboPooledDataSource dataSource;
 	
 	// 생성자 메소드와 꺼내온 DBCP 빈을 이용하여 탬플릿을 초기화합니다.
-	public ProductDao(){
+	// public ProductDao(){
+	// 	this.template = new JdbcTemplate(dataSource);
+	// }
+	
+	@Autowired // Autowired로 빈을 꺼내와서 담는 동작은 생성자의 전달인수에도 가능합니다.
+	public ProductDao(ComboPooledDataSource dataSource) {
 		this.template = new JdbcTemplate(dataSource);
 	}
+	// 스프링 컨테이너의 dataSource -> 생성자의 전달인수로 -> jdbcTemplate의 생성자의 전달인수로..
 	
 	// 이로써 연결을 이용한 데이터베이스 운용이 가능해졌습니다.
 }
