@@ -7,8 +7,8 @@
 		<meta charset="UTF-8">
 		<title>Main</title>
 		<link href="resources/css/shopping.css" rel="stylesheet">
-		<script src="resources/member/member.js"></script>
-		<script src="resources/mypage/mypage.js"></script>
+		<script src="resources/script/member.js"></script>
+		<script src="resources/script/mypage.js"></script>
 	</head>
 	<body>
 		<div id="wrap">
