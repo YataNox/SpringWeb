@@ -55,4 +55,13 @@ public class ProductController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="productDetail")
+	public ModelAndView productDetail(@RequestParam("pseq") int pseq) {
+		ModelAndView mav = new ModelAndView();
+		
+		mav.addObject("productVO", ps.getProduct(pseq));
+		mav.setViewName("product/productDetail");
+		return mav;
+	}
 }

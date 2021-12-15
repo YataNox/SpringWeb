@@ -92,4 +92,29 @@ public class ProductDao {
 		
 		return list;
 	}
+
+	public ProductVO getProduct(int pseq) {
+		String sql = "select * from product where pseq = ?";
+		
+		List<ProductVO> list = template.query(sql, new RowMapper<ProductVO>() {
+			public ProductVO mapRow(ResultSet rs, int rowNum) throws SQLException{
+				ProductVO pvo = new ProductVO();
+				pvo.setPseq(rs.getInt("pseq"));
+				pvo.setIndate(rs.getTimestamp("indate"));
+				pvo.setName(rs.getString("name"));
+				pvo.setPrice1(rs.getInt("price1"));
+				pvo.setPrice2(rs.getInt("price2"));
+				pvo.setImage(rs.getString("image"));
+				pvo.setUseyn(rs.getString("useyn"));
+				pvo.setBestyn(rs.getString("bestyn"));
+				return pvo;
+			}
+		}, pseq);
+		
+		if(list.size() == 0) {
+			return null;
+		}else {
+			return list.get(0);
+		}
+	}
 }
