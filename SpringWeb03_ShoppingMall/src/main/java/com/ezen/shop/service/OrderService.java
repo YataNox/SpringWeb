@@ -36,4 +36,8 @@ public class OrderService {
 	public List<Integer> selectSeqOrderIng(String id) {
 		return odao.selectSeqOrderIng(id);
 	}
+
+	public List<Integer> oseqListAll(String id) {
+		return odao.oseqListAll(id);
+	}
 }

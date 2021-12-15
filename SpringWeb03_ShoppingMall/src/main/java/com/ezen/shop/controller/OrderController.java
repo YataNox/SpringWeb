@@ -94,7 +94,7 @@ public class OrderController {
 				// 4. 리스트를 이용해서 총 가격을 계산합니다.
 				int totalPrice = 0;
 				for(OrderVO ovo1 : orderListIng)
-					totalPrice += ovo1.getPrice2() + ovo1.getQuantity();
+					totalPrice += ovo1.getPrice2() * ovo1.getQuantity();
 				
 				// 5. 제목을 변경한 주문상세내역에 금액도 현재 총 금액으로 변경합니다.
 				ovo.setPrice2(totalPrice);
@@ -103,6 +103,39 @@ public class OrderController {
 				orderList.add(ovo);
 			}
 			mav.addObject("title", "진행중인 주문 내역");
+			mav.addObject("orderList", orderList);
+			mav.setViewName("mypage/mypage");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/orderAll") // 진행중인 주문 내역
+	public ModelAndView orderAll(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO)session.getAttribute("loginUser");
+		if(mvo==null)
+			mav.setViewName("member/login");
+		else {
+			ArrayList<OrderVO> orderList = new ArrayList<OrderVO>();
+			List<Integer> oseqList = os.oseqListAll(mvo.getId()); // 주문번호들 조회
+	
+			for(int oseq : oseqList) {
+				List<OrderVO> orderListIng = os.listOrderByOseq(oseq); // 주문번호로 주문상품 조회
+
+				OrderVO ovo = orderListIng.get(0); // 상품 중 첫 번째 추출
+				ovo.setPname(ovo.getPname() + " 포함 " + orderListIng.size() + " 건"); // 상품명 변경
+				
+				int totalPrice = 0;
+				for(OrderVO ovo1 : orderListIng)
+					totalPrice += ovo1.getPrice2() * ovo1.getQuantity();
+				
+				ovo.setPrice2(totalPrice);
+				
+				orderList.add(ovo);
+			}
+			mav.addObject("title", "총 주문 내역");
 			mav.addObject("orderList", orderList);
 			mav.setViewName("mypage/mypage");
 		}

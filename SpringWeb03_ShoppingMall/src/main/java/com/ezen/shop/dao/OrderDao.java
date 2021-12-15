@@ -95,4 +95,20 @@ private JdbcTemplate template;
 		
 		return list;
 	}
+
+	public List<Integer> oseqListAll(String id) {
+		String sql ="select distinct oseq from "
+				+ "(select oseq, id from order_view order by result) "
+				+ "where id = ? order by oseq desc";
+		List<Integer> list = template.query(sql, new RowMapper<Integer>() {
+			@Override
+			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+				int oseq = rs.getInt("oseq");
+				return oseq;
+			}
+			
+		},id);
+		
+		return list;
+	}
 }
