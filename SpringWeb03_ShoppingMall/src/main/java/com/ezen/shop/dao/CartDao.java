@@ -49,4 +49,10 @@ public class CartDao {
 		}, id);
 		return list;
 	}
+
+	public void deleteCart(String cseq) {
+		String sql = "delete from cart where cseq=?";
+		
+		template.update(sql, cseq);
+	}
 }

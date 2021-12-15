@@ -20,4 +20,8 @@ public class CartService {
 	public List<CartVO> listCart(String id) {
 		return cdao.listCart(id);
 	}
+
+	public void deleteCart(String cseq) {
+		cdao.deleteCart(cseq);
+	}
 }

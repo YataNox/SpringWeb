@@ -59,4 +59,12 @@ public class CartController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value="/cartDelete")
+	public String cartDelete(@RequestParam("cseq") String[] cseqArr) {
+		for(String cseq : cseqArr)
+			cs.deleteCart(cseq);
+		
+		return "redirect:/cartList";
+	}
 }
