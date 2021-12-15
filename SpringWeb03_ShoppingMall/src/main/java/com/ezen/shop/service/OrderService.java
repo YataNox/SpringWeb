@@ -32,4 +32,8 @@ public class OrderService {
 	public List<OrderVO> listOrderByOseq(int oseq) {
 		 return odao.listOrderByOseq(oseq);
 	}
+
+	public List<Integer> selectSeqOrderIng(String id) {
+		return odao.selectSeqOrderIng(id);
+	}
 }

@@ -1,5 +1,6 @@
 package com.ezen.shop.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -62,6 +63,49 @@ public class OrderController {
 
 		}
 		
+		return mav;
+	}
+	
+	@RequestMapping(value="/myPage") // 진행중인 주문 내역
+	public ModelAndView mypage(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		
+		HttpSession session = request.getSession();
+		MemberVO mvo = (MemberVO)session.getAttribute("loginUser");
+		if(mvo==null)
+			mav.setViewName("member/login");
+		else {
+			// mypage.jsp 전달될 리스트
+			ArrayList<OrderVO> orderList = new ArrayList<OrderVO>();
+			
+			// 1. 현재 로그인 유저의 아이디로 미처리된 주문 번호들(order_view 테이블에서 조회)을
+			//		리스트로 받습니다.(중복제거)
+			List<Integer> oseqList = os.selectSeqOrderIng(mvo.getId());
+			
+			// 2. 리턴 받은 리스트의 주문 번호를 하나씩 꺼내서(반복실행문 사용),
+			//		해당 주문 번호의 주문 상세 내역을 리스트로 받습니다.
+			for(int oseq : oseqList) {
+				List<OrderVO> orderListIng = os.listOrderByOseq(oseq);
+				
+				// 3. 리턴 받은 주문 상세내역 중 맨 첫 번째 상품의 이름을 "가나다 포함 x건"으로 변경합니다.
+				OrderVO ovo = orderListIng.get(0);
+				ovo.setPname(ovo.getPname() + " 포함 " + orderListIng.size() + " 건");
+				
+				// 4. 리스트를 이용해서 총 가격을 계산합니다.
+				int totalPrice = 0;
+				for(OrderVO ovo1 : orderListIng)
+					totalPrice += ovo1.getPrice2() + ovo1.getQuantity();
+				
+				// 5. 제목을 변경한 주문상세내역에 금액도 현재 총 금액으로 변경합니다.
+				ovo.setPrice2(totalPrice);
+				
+				// 6. 현재 주문상세리스트 중 첫 번째(주문이름과 총 금액을 담고 있는)주문을 orderList에 담습니다.
+				orderList.add(ovo);
+			}
+			mav.addObject("title", "진행중인 주문 내역");
+			mav.addObject("orderList", orderList);
+			mav.setViewName("mypage/mypage");
+		}
 		return mav;
 	}
 }

@@ -81,4 +81,18 @@ private JdbcTemplate template;
 	      }, oseq);
 	      return list;
 	   }
+
+	public List<Integer> selectSeqOrderIng(String id) {
+		String sql = "select distinct oseq from order_view where id=? and result='1' order by oseq desc";
+		List<Integer> list = template.query(sql, new RowMapper<Integer>() {
+			@Override
+			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+				int oseq = rs.getInt("oseq");
+				return oseq;
+			}
+			
+		},id);
+		
+		return list;
+	}
 }
