@@ -3,8 +3,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <%@ include file="/resources/headerfooter/header.jsp"%>
-<%@ include file="/resources/sub02/sub_image.html"%>
-<%@ include file="/resources/sub02/sub_menu.html"%>
+<%@ include file="/resources/sub03/sub_image.html"%>
+<%@ include file="/resources/sub03/sub_menu.jsp"%>
 
 <article>
 	<h2>Cart List</h2>
@@ -56,7 +56,7 @@
 			</c:otherwise>
 		</c:choose>
 		<div id="buttons" style="float: right">
-			<input type="button" value="계속 쇼핑" class="cancel" onclick="location.href='index'">
+			<input type="button" value="계속 쇼핑" class="cancel" onclick="location.href='/shop/'">
 			<c:if test="${cartList.size() != 0}">
 				<input type="button" value="주문하기" class="submit" onClick="go_order_insert();">
 			</c:if>
