@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ezen.shop.dto.Paging;
 import com.ezen.shop.dto.ProductVO;
 import com.ezen.shop.service.AdminService;
 import com.ezen.shop.service.ProductService;
@@ -68,7 +69,23 @@ public class AdminController {
 		if(id == null)
 			mav.setViewName("redirect:/admin");
 		else {
-			List<ProductVO> productList = as.listProduct();
+			int page = 1;
+			if(request.getParameter("page") != null) {
+				page = Integer.parseInt(request.getParameter("page"));
+				session.setAttribute("page", page);
+			}else if(session.getAttribute("page") != null) {
+				page = (Integer)session.getAttribute("page");
+			}else {
+				page = 1;
+				session.removeAttribute("page");
+			}
+			Paging paging = new Paging();
+			paging.setPage(page);
+			
+			int count = as.getAllCount("product");
+			paging.setTotalCount(count);
+			
+			List<ProductVO> productList = as.listProduct(paging);
 			mav.addObject("productList", productList);
 			mav.setViewName("admin/product/productList");
 		}

@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import com.ezen.shop.dto.Paging;
 import com.ezen.shop.dto.ProductVO;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -41,7 +42,7 @@ private JdbcTemplate template;
 		return result;
 	}
 
-	public List<ProductVO> listProduct() {
+	public List<ProductVO> listProduct(Paging paging) {
 		String sql = "select * from product order by pseq desc";
 		
 		List<ProductVO> list = template.query(sql, new RowMapper<ProductVO>() {
@@ -62,5 +63,19 @@ private JdbcTemplate template;
 		});
 		
 		return list;
+	}
+
+	public int getAllCount(String tablename) {
+		String sql = "select count(*) as count from " + tablename;
+		
+		List<Integer> list = template.query(sql, new RowMapper<Integer>() {
+			@Override
+			public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+				int count = rs.getInt("count");
+				return count;
+			}
+		});
+		
+		return list.get(0);
 	}
 }

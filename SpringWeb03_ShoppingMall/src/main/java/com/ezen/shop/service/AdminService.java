@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ezen.shop.dao.AdminDao;
+import com.ezen.shop.dto.Paging;
 import com.ezen.shop.dto.ProductVO;
 
 @Service
@@ -17,7 +18,11 @@ public class AdminService {
 		return adao.workerCheck(workId, workPwd);
 	}
 
-	public List<ProductVO> listProduct() {
-		return adao.listProduct();
+	public List<ProductVO> listProduct(Paging paging) {
+		return adao.listProduct(paging);
+	}
+
+	public int getAllCount(String tablename) {
+		return adao.getAllCount(tablename);
 	}
 }
