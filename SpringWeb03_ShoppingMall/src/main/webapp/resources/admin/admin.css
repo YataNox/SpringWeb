@@ -1,5 +1,3 @@
-.clear{ clear:both;}
-
 header {
  height: 151px;
 }
@@ -76,6 +74,9 @@ nav#top_menu ul li a.logout1 {
  margin-left: 210px;
 }
 
+.clear {
+ clear: both;
+}
 
 #review {
  float: inherit;
@@ -420,5 +421,3 @@ div.reviewdiv table.reviewtable {
  font-size: 10pt;
  text-align: center;
 }
-
-

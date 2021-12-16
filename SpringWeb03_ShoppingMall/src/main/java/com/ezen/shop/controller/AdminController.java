@@ -1,5 +1,7 @@
 package com.ezen.shop.controller;
 
+import java.util.List;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ezen.shop.dto.ProductVO;
 import com.ezen.shop.service.AdminService;
 import com.ezen.shop.service.ProductService;
 import com.ezen.shop.service.QnaService;
@@ -53,6 +56,21 @@ public class AdminController {
 		}else {
 			mav.addObject("message", "알수없는 이유로 로그인이 실패.");
 			mav.setViewName("admin/adminLoginForm");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="productList")
+	public ModelAndView product_list(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("workId");
+		if(id == null)
+			mav.setViewName("redirect:/admin");
+		else {
+			List<ProductVO> productList = as.listProduct();
+			mav.addObject("productList", productList);
+			mav.setViewName("admin/product/productList");
 		}
 		return mav;
 	}
