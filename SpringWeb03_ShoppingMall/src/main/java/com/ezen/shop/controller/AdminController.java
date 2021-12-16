@@ -106,4 +106,19 @@ public class AdminController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value="adminProductDetail")
+	public ModelAndView product_detail(HttpServletRequest request, @RequestParam("pseq") int pseq) {
+		ModelAndView mav = new ModelAndView();
+		
+		ProductVO pvo = ps.getProduct(pseq);
+		String kindList[] = {"0", "Heels", "Boots", "Sandals", "Slipers", "Shckers", "Sale"};
+		int index = Integer.parseInt(pvo.getKind());
+		
+		mav.addObject("productVO", pvo);
+		mav.addObject("kind", kindList[index]);
+		mav.setViewName("admin/product/productDetail");
+		
+		return mav;
+	}
 }

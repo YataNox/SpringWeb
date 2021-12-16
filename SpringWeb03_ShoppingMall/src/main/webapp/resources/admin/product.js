@@ -1,10 +1,10 @@
 function go_wrt(){
-	document.frm.action = "shop.do?command=adminProductWriteForm";
+	document.frm.action = "adminProductWriteForm";
 	document.frm.submit();
 }
 
 function go_mov(){
-	location.href="shop.do?command=adminProductList";
+	location.href="productList";
 }
 
 function go_save(){
@@ -28,19 +28,19 @@ function go_save(){
 		alert("상품이미지를 입력하세요");
 		theForm.image.focus();
 	}else{
-		theForm.action = "shop.do?command=adminProductWrite";
+		theForm.action = "adminProductWrite";
 		theForm.submit();
 	}
 }
 
 function go_detail(pseq){
-	var url = "shop.do?command=adminProductDetail&pseq=" + pseq;
+	var url = "adminProductDetail?pseq=" + pseq;
 	document.frm.action = url;
 	document.frm.submit();
 }
 
 function go_mod(pseq){
-	var url = "productUpdateForm&pseq=" + pseq;
+	var url = "productUpdateForm?pseq=" + pseq;
 	location.href=url;
 }
 
@@ -96,7 +96,7 @@ function go_search_order(){
 
 function go_total_order(){
 	document.frm.key.value="";
-	document.frm.action = "shop.do?command=adminOrderList&page=1";
+	document.frm.action = "adminOrderList?page=1";
 	document.frm.submit();
 }
 
@@ -115,7 +115,7 @@ function go_order_save(){
 	if(count == 0){
 		alert("주문처리할 항목을 선택해 주세요.")
 	}else{
-		document.frm.action = "shop.do?command=adminOrderSave";
+		document.frm.action = "adminOrderSave";
 		document.frm.submit();
 	}
 }
@@ -124,22 +124,22 @@ function go_search_qna(){
 	if(document.frm.key.value=="")
 		return;
 		
-	var url = "shop.do?command=adminQnaList&page=1";
+	var url = "adminQnaList?page=1";
 	document.frm.action = url;
 	document.frm.submit();
 }
 
 function go_total_qna(){
 	document.frm.key.value="";
-	document.frm.action = "shop.do?command=adminQnaList&page=1";
+	document.frm.action = "adminQnaList?page=1";
 	document.frm.submit();
 }
 
 function go_view(qseq){
-	location.href = "shop.do?command=adminQnaDetail&qseq=" + qseq;
+	location.href = "adminQnaDetail?qseq=" + qseq;
 }
 
 function go_rep(){
-	document.frm.action="shop.do?command=adminQnaRepsave";
+	document.frm.action="adminQnaRepsave";
 	document.frm.submit();
 }
