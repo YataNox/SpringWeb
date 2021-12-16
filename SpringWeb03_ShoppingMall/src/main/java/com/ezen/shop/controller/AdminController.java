@@ -60,7 +60,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping(value="productList")
+	@RequestMapping(value="/productList")
 	public ModelAndView product_list(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		HttpSession session = request.getSession();
