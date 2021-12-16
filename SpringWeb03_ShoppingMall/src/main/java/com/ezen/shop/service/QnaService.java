@@ -18,4 +18,12 @@ public class QnaService {
 		return qdao.listQna(id);
 	}
 
+	public QnaVO getQna(int qseq) {
+		return qdao.getQna(qseq);
+	}
+
+	public void insertQna(QnaVO qvo, String id) {
+		qdao.insertQna(qvo, id);	
+	}
+
 }

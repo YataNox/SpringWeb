@@ -41,4 +41,32 @@ private JdbcTemplate template;
 		},id);
 		return list;
 	}
+
+	public QnaVO getQna(int qseq) {
+		String sql = "select * from qna where qseq = ?";
+		
+		List<QnaVO> list = template.query(sql, new RowMapper<QnaVO>() {
+			@Override
+			public QnaVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				QnaVO qvo = new QnaVO();
+				qvo.setQseq(rs.getInt("qseq"));
+				qvo.setSubject(rs.getString("subject"));
+				qvo.setContent(rs.getString("content"));
+				qvo.setReply(rs.getString("reply"));
+				qvo.setRep(rs.getString("rep"));
+				qvo.setId(rs.getString("id"));
+				qvo.setIndate(rs.getTimestamp("indate"));
+				return qvo;
+			}
+			
+		}, qseq);
+		
+		return list.get(0);
+	}
+
+	public void insertQna(QnaVO qvo, String id) {
+		String sql = "insert into qna(qseq, subject, content, id) values(qna_seq.nextVal, ?, ?, ?)";
+		
+		int result = template.update(sql, qvo.getSubject(), qvo.getContent(), id);
+	}
 }
