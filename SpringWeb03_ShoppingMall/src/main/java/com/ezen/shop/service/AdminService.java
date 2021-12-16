@@ -18,11 +18,11 @@ public class AdminService {
 		return adao.workerCheck(workId, workPwd);
 	}
 
-	public List<ProductVO> listProduct(Paging paging) {
-		return adao.listProduct(paging);
+	public List<ProductVO> listProduct(Paging paging, String key) {
+		return adao.listProduct(paging, key);
 	}
 
-	public int getAllCount(String tablename) {
-		return adao.getAllCount(tablename);
+	public int getAllCount(String tablename, String fieldname, String key) {
+		return adao.getAllCount(tablename, fieldname, key);
 	}
 }

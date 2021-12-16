@@ -79,15 +79,28 @@ public class AdminController {
 				page = 1;
 				session.removeAttribute("page");
 			}
+			
+			String key = "";
+			if(request.getParameter("key") != null) {
+				key = request.getParameter("key");
+				session.setAttribute("key", key);
+			}else if(session.getAttribute("key") != null) {
+				key = (String)session.getAttribute("key");
+			} else {
+				session.removeAttribute("key");
+				key = "";
+			}
+			
 			Paging paging = new Paging();
 			paging.setPage(page);
 			
-			int count = as.getAllCount("product");
+			int count = as.getAllCount("product", "name", key);
 			paging.setTotalCount(count);
 			
-			List<ProductVO> productList = as.listProduct(paging);
+			List<ProductVO> productList = as.listProduct(paging, key);
 			
 			request.setAttribute("paging", paging);
+			request.setAttribute("key", key);
 			mav.addObject("productList", productList);
 			mav.setViewName("admin/product/productList");
 		}

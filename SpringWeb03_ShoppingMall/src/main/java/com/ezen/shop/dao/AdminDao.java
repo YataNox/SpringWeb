@@ -42,11 +42,11 @@ private JdbcTemplate template;
 		return result;
 	}
 
-	public List<ProductVO> listProduct(Paging paging) {
+	public List<ProductVO> listProduct(Paging paging, String key) {
 		String sql = "select * from ("
 				+ "select * from ("
 				+ "select rownum as rn, p.* from "
-				+ "((select * from product order by pseq desc) p)"
+				+ "((select * from product where name like '%'||?||'%' order by pseq desc) p)"
 				+ ") where rn >= ?"
 				+ ") where rn <= ?";
 		
@@ -65,13 +65,13 @@ private JdbcTemplate template;
 				pvo.setBestyn(rs.getString("bestyn"));
 				return pvo;
 			}
-		}, paging.getStartNum(), paging.getEndNum());
+		}, key, paging.getStartNum(), paging.getEndNum());
 		
 		return list;
 	}
 
-	public int getAllCount(String tablename) {
-		String sql = "select count(*) as count from " + tablename;
+	public int getAllCount(String tablename, String fieldname, String key) {
+		String sql = "select count(*) as count from " + tablename + " where " + fieldname + " like '%'||?||'%'";
 		
 		List<Integer> list = template.query(sql, new RowMapper<Integer>() {
 			@Override
@@ -79,7 +79,7 @@ private JdbcTemplate template;
 				int count = rs.getInt("count");
 				return count;
 			}
-		});
+		}, key);
 		
 		return list.get(0);
 	}

@@ -40,7 +40,7 @@ function go_detail(pseq){
 }
 
 function go_mod(pseq){
-	var url = "shop.do?command=adminProductUpdateForm&pseq=" + pseq;
+	var url = "productUpdateForm&pseq=" + pseq;
 	location.href=url;
 }
 
@@ -62,7 +62,7 @@ function go_mod_save(){
 		document.frm.content.focus();
 	}else{
 		if(confirm('수정하시겠습니까?')){
-			document.frm.action = "shop.do?command=adminProductUpdate";
+			document.frm.action = "productUpdate";
 			document.frm.submit();
 		}
 	}
@@ -72,7 +72,7 @@ function go_search(){
 	if(document.frm.key.value=="")
 		return;
 		
-	var url = "shop.do?command=adminProductList&page=1";
+	var url = "productList?page=1";
 	// 보던 페이지가 어떤 페이지이던간에 검색 결과의 1페이지로 가기위해 파라미터 page를 1로 전송
 	document.frm.action = url;
 	document.frm.submit();
@@ -80,7 +80,7 @@ function go_search(){
 
 function go_total(){
 	document.frm.key.value="";
-	document.frm.action = "shop.do?command=adminProductList&page=1";
+	document.frm.action = "productList?page=1";
 	document.frm.submit();
 }
 
@@ -88,7 +88,7 @@ function go_search_order(){
 	if(document.frm.key.value=="")
 		return;
 		
-	var url = "shop.do?command=adminOrderList&page=1";
+	var url = "shop.do?command=adminOrderList?page=1";
 	// 보던 페이지가 어떤 페이지이던간에 검색 결과의 1페이지로 가기위해 파라미터 page를 1로 전송
 	document.frm.action = url;
 	document.frm.submit();
