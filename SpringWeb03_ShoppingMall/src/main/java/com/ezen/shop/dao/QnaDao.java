@@ -22,7 +22,7 @@ private JdbcTemplate template;
 	}
 
 	public List<QnaVO> listQna(String id) {
-		String sql = "select * from qna where id = ?";
+		String sql = "select * from qna where id = ? order by qseq desc";
 		
 		List<QnaVO> list = template.query(sql, new RowMapper<QnaVO>() {
 			@Override
