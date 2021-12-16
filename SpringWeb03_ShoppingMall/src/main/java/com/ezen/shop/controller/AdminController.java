@@ -86,6 +86,8 @@ public class AdminController {
 			paging.setTotalCount(count);
 			
 			List<ProductVO> productList = as.listProduct(paging);
+			
+			request.setAttribute("paging", paging);
 			mav.addObject("productList", productList);
 			mav.setViewName("admin/product/productList");
 		}

@@ -43,7 +43,12 @@ private JdbcTemplate template;
 	}
 
 	public List<ProductVO> listProduct(Paging paging) {
-		String sql = "select * from product order by pseq desc";
+		String sql = "select * from ("
+				+ "select * from ("
+				+ "select rownum as rn, p.* from "
+				+ "((select * from product order by pseq desc) p)"
+				+ ") where rn >= ?"
+				+ ") where rn <= ?";
 		
 		List<ProductVO> list = template.query(sql, new RowMapper<ProductVO>() {
 			@Override
@@ -60,7 +65,7 @@ private JdbcTemplate template;
 				pvo.setBestyn(rs.getString("bestyn"));
 				return pvo;
 			}
-		});
+		}, paging.getStartNum(), paging.getEndNum());
 		
 		return list;
 	}
