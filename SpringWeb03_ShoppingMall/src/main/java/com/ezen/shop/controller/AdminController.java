@@ -74,11 +74,11 @@ public class AdminController {
 			mav.setViewName("redirect:/admin");
 		else {
 			int page = 1;
-			/*if(request.getParameter("first")=="y") {
+			if(request.getParameter("first") != null && request.getParameter("first").equals("y")) {
 				page = 1;
 				session.removeAttribute("page");
 			}
-			else */if(request.getParameter("page") != null) {
+			else if(request.getParameter("page") != null) {
 				page = Integer.parseInt(request.getParameter("page"));
 				session.setAttribute("page", page);
 			}else if(session.getAttribute("page") != null) {
@@ -89,11 +89,11 @@ public class AdminController {
 			}
 			
 			String key = "";
-			/*if(request.getParameter("first")=="y") {
+			if(request.getParameter("first") != null && request.getParameter("first").equals("y")) {
 				key = "";
 				session.removeAttribute("page");
 			}
-			else */if(request.getParameter("key") != null) {
+			else if(request.getParameter("key") != null) {
 				key = request.getParameter("key");
 				session.setAttribute("key", key);
 			}else if(session.getAttribute("key") != null) {
@@ -214,11 +214,11 @@ public class AdminController {
 			mav.setViewName("redirect:/admin");
 		else {
 			int page = 1;
-			/*if(request.getParameter("first")=="y") {
+			if(request.getParameter("first") != null && request.getParameter("first").equals("y")) {
 				page = 1;
 				session.removeAttribute("page");
 			}
-			else */if(request.getParameter("page") != null) {
+			else if(request.getParameter("page") != null) {
 				page = Integer.parseInt(request.getParameter("page"));
 				session.setAttribute("page", page);
 			}else if(session.getAttribute("page") != null) {
@@ -229,11 +229,11 @@ public class AdminController {
 			}
 			
 			String key = "";
-			/*if(request.getParameter("first")=="y") {
+			if(request.getParameter("first") != null && request.getParameter("first").equals("y")) {
 				key = "";
 				session.removeAttribute("page");
 			}
-			else */if(request.getParameter("key") != null) {
+			else if(request.getParameter("key") != null) {
 				key = request.getParameter("key");
 				session.setAttribute("key", key);
 			}else if(session.getAttribute("key") != null) {
