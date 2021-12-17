@@ -378,4 +378,16 @@ public class AdminController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value="/adminQnaDetail")
+	public ModelAndView admin_qna_detail(HttpServletRequest request, @RequestParam("qseq") int qseq) {
+		ModelAndView mav = new ModelAndView();
+		
+		QnaVO qvo = qs.getQna(qseq);
+		
+		mav.addObject("qnaVO", qvo);
+		mav.setViewName("admin/qna/qnaDetail");
+		
+		return mav;
+	}
 }

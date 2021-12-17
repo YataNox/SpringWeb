@@ -25,7 +25,7 @@
 			<c:when test='${qnaVO.rep=="1"}'>
 				<table id="orderList">
 					<tr>
-						<td colspan="2"><img src="admin/images/opinionimg01.gif"></td>
+						<td colspan="2"><img src="resources/admin/opinionimg01.gif"></td>
 					</tr>
 					<tr>
 						<td colspan="2">
@@ -44,7 +44,7 @@
 				</table>
 			</c:otherwise>
 		</c:choose>
-		<input type="button" class="btn" value="목록" onclick="location.href='shop.do?command=adminQnaList'">
+		<input type="button" class="btn" value="목록" onclick="location.href='adminQnaList?page=1'">
 	</form>
 </article>
 
