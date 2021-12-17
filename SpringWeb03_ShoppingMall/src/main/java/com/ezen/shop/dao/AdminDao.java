@@ -132,4 +132,10 @@ private JdbcTemplate template;
 		
 		return list;
 	}
+
+	public void saveOrderResult(String re) {
+		String sql = "update order_detail set result = '2' where odseq = ?";
+		
+		int result = template.update(sql, re);
+	}
 }

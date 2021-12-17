@@ -38,4 +38,8 @@ public class AdminService {
 	public List<OrderVO> listOrder(Paging paging, String key) {
 		return adao.listOrder(paging, key);
 	}
+
+	public void saveOrderResult(String re) {
+		adao.saveOrderResult(re);		
+	}
 }

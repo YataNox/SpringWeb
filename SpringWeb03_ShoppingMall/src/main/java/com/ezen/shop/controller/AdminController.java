@@ -258,4 +258,15 @@ public class AdminController {
 		}
 		return mav;
 	}
+	
+	@RequestMapping(value="/adminOrderSave")
+	public String adminOrderSave(HttpServletRequest request, @RequestParam("result") String[] result) {
+		ModelAndView mav = new ModelAndView();
+		
+		for(String Re : result) {
+			as.saveOrderResult(Re);
+		}
+		
+		return "redirect:/adminOrderList";
+	}
 }
