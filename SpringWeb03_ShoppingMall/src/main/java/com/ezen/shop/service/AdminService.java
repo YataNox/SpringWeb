@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ezen.shop.dao.AdminDao;
+import com.ezen.shop.dto.OrderVO;
 import com.ezen.shop.dto.Paging;
 import com.ezen.shop.dto.ProductVO;
 
@@ -32,5 +33,9 @@ public class AdminService {
 
 	public void updateProduct(ProductVO pvo) {
 		adao.updateProduct(pvo);
+	}
+
+	public List<OrderVO> listOrder(Paging paging, String key) {
+		return adao.listOrder(paging, key);
 	}
 }

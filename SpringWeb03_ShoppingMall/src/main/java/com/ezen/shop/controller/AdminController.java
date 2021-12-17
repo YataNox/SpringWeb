@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ezen.shop.dto.OrderVO;
 import com.ezen.shop.dto.Paging;
 import com.ezen.shop.dto.ProductVO;
 import com.ezen.shop.service.AdminService;
@@ -73,7 +74,11 @@ public class AdminController {
 			mav.setViewName("redirect:/admin");
 		else {
 			int page = 1;
-			if(request.getParameter("page") != null) {
+			/*if(request.getParameter("first")=="y") {
+				page = 1;
+				session.removeAttribute("page");
+			}
+			else */if(request.getParameter("page") != null) {
 				page = Integer.parseInt(request.getParameter("page"));
 				session.setAttribute("page", page);
 			}else if(session.getAttribute("page") != null) {
@@ -84,7 +89,11 @@ public class AdminController {
 			}
 			
 			String key = "";
-			if(request.getParameter("key") != null) {
+			/*if(request.getParameter("first")=="y") {
+				key = "";
+				session.removeAttribute("page");
+			}
+			else */if(request.getParameter("key") != null) {
 				key = request.getParameter("key");
 				session.setAttribute("key", key);
 			}else if(session.getAttribute("key") != null) {
@@ -194,5 +203,59 @@ public class AdminController {
 			e.printStackTrace();
 		}
 		return "redirect:/adminProductDetail?pseq=" + pseq;
+	}
+	
+	@RequestMapping(value="/adminOrderList")
+	public ModelAndView adminOrderList(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("workId");
+		if(id == null)
+			mav.setViewName("redirect:/admin");
+		else {
+			int page = 1;
+			/*if(request.getParameter("first")=="y") {
+				page = 1;
+				session.removeAttribute("page");
+			}
+			else */if(request.getParameter("page") != null) {
+				page = Integer.parseInt(request.getParameter("page"));
+				session.setAttribute("page", page);
+			}else if(session.getAttribute("page") != null) {
+				page = (Integer)session.getAttribute("page");
+			}else {
+				page = 1;
+				session.removeAttribute("page");
+			}
+			
+			String key = "";
+			/*if(request.getParameter("first")=="y") {
+				key = "";
+				session.removeAttribute("page");
+			}
+			else */if(request.getParameter("key") != null) {
+				key = request.getParameter("key");
+				session.setAttribute("key", key);
+			}else if(session.getAttribute("key") != null) {
+				key = (String)session.getAttribute("key");
+			} else {
+				session.removeAttribute("key");
+				key = "";
+			}
+			
+			Paging paging = new Paging();
+			paging.setPage(page);
+			
+			int count = as.getAllCount("order_view", "mname", key);
+			paging.setTotalCount(count);
+			
+			List<OrderVO> orderList = as.listOrder(paging, key);
+			
+			request.setAttribute("paging", paging);
+			request.setAttribute("key", key);
+			mav.addObject("orderList", orderList);
+			mav.setViewName("admin/order/orderList");
+		}
+		return mav;
 	}
 }

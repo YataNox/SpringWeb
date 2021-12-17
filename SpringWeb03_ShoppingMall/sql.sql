@@ -4,6 +4,7 @@ select * from user_sequences;
 select * from member;
 select * from product;
 select * from orders;
+select * from ORDER_VIEW;
 
 update order_detail set result = '2' where oseq=5;
 
