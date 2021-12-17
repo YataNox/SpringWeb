@@ -91,4 +91,12 @@ private JdbcTemplate template;
 		template.update(sql, pvo.getKind(), pvo.getName(), pvo.getContent(), pvo.getPrice1(),
 				pvo.getPrice2(), pvo.getPrice3(), pvo.getImage());
 	}
+
+	public void updateProduct(ProductVO pvo) {
+		String sql = "update product set kind=?, name=?, content=?, price1=?, price2=?, price3=?, image=?,"
+				+ "bestyn=?, useyn=? where pseq=?";
+		
+		template.update(sql, pvo.getKind(), pvo.getName(), pvo.getContent(), pvo.getPrice1(),
+				pvo.getPrice2(), pvo.getPrice3(), pvo.getImage(), pvo.getBestyn(), pvo.getUseyn(), pvo.getPseq());
+	}
 }

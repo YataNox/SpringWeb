@@ -45,6 +45,14 @@ function go_mod(pseq){
 }
 
 function go_mod_save(){
+	if(document.frm.bestyn.checked == true){
+		document.frm.bestyn.value = "y";
+	}
+	
+	if(document.frm.useyn.checked == true){
+		document.frm.useyn.value = "y";
+	}
+	
 	if(document.frm.kind.value==""){
 		alert("상품분류를 선택하세요.");
 		document.frm.kind.focus();

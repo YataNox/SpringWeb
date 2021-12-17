@@ -154,4 +154,45 @@ public class AdminController {
 		}
 		return "redirect:/productList";
 	}
+	
+	@RequestMapping(value="/productUpdateForm")
+	public ModelAndView product_Update_form(HttpServletRequest request, @RequestParam("pseq") int pseq) {
+		String kindList[] = {"Heels", "Boots", "Sandals", "Slipers", "Shckers", "Sale"};
+		ModelAndView mav = new ModelAndView();
+		ProductVO pvo = ps.getProduct(pseq);
+		
+		mav.addObject("productVO", pvo);
+		mav.addObject("kindList", kindList);
+		mav.setViewName("admin/product/productUpdate");
+		return mav;
+	}
+	
+	@RequestMapping(value="/productUpdate", method=RequestMethod.POST)
+	public String product_update(HttpServletRequest request) {
+		String savePath = context.getRealPath("resources/product_images");
+		int pseq = 0;
+		try {
+			MultipartRequest multi = new MultipartRequest(request, savePath, 5*1024*1024, "UTF-8", new DefaultFileRenamePolicy());
+			ProductVO pvo = new ProductVO();
+			pseq = Integer.parseInt(multi.getParameter("pseq"));
+			pvo.setPseq(pseq);
+			pvo.setKind(multi.getParameter("kind"));
+			pvo.setName(multi.getParameter("name"));
+			pvo.setContent(multi.getParameter("content"));
+			pvo.setPrice1(Integer.parseInt(multi.getParameter("price1")));
+			pvo.setPrice2(Integer.parseInt(multi.getParameter("price2")));
+			pvo.setPrice3(Integer.parseInt(multi.getParameter("price3")));
+			pvo.setBestyn(multi.getParameter("bestyn"));
+			pvo.setUseyn(multi.getParameter("useyn"));
+			String image = multi.getFilesystemName("image");
+			if(image == null) {
+				image = multi.getParameter("oldImage");
+			}
+			pvo.setImage(image);
+			as.updateProduct(pvo);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/adminProductDetail?pseq=" + pseq;
+	}
 }
