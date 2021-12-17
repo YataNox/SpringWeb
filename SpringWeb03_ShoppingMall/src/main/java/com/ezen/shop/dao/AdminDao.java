@@ -83,4 +83,12 @@ private JdbcTemplate template;
 		
 		return list.get(0);
 	}
+
+	public void insertProduct(ProductVO pvo) {
+		String sql = "insert into product(pseq, kind, name, content, price1, price2, price3, image) "
+				+ "values(product_seq.nextVal, ?, ?, ?, ?, ?, ?, ?)";
+		
+		template.update(sql, pvo.getKind(), pvo.getName(), pvo.getContent(), pvo.getPrice1(),
+				pvo.getPrice2(), pvo.getPrice3(), pvo.getImage());
+	}
 }

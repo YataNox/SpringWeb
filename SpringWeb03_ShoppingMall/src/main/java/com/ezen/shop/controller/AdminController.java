@@ -1,5 +1,6 @@
 package com.ezen.shop.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -18,6 +19,8 @@ import com.ezen.shop.dto.ProductVO;
 import com.ezen.shop.service.AdminService;
 import com.ezen.shop.service.ProductService;
 import com.ezen.shop.service.QnaService;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 @Controller
 public class AdminController {
@@ -107,7 +110,7 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping(value="adminProductDetail")
+	@RequestMapping(value="/adminProductDetail")
 	public ModelAndView product_detail(HttpServletRequest request, @RequestParam("pseq") int pseq) {
 		ModelAndView mav = new ModelAndView();
 		
@@ -120,5 +123,35 @@ public class AdminController {
 		mav.setViewName("admin/product/productDetail");
 		
 		return mav;
+	}
+	
+	@RequestMapping(value="/productWriteForm")
+	public ModelAndView product_wirte_form(HttpServletRequest request) {
+		String kindList[] = {"Heels", "Boots", "Sandals", "Slipers", "Shckers", "Sale"};
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("kindList", kindList);
+		mav.setViewName("admin/product/productWriteForm");
+		return mav;
+	}
+	
+	@RequestMapping(value="/productWrite", method=RequestMethod.POST)
+	public String product_write(HttpServletRequest request) {
+		String savePath = context.getRealPath("resources/product_images");
+		
+		try {
+			MultipartRequest multi = new MultipartRequest(request, savePath, 5*1024*1024, "UTF-8", new DefaultFileRenamePolicy());
+			ProductVO pvo = new ProductVO();
+			pvo.setKind(multi.getParameter("kind"));
+			pvo.setName(multi.getParameter("name"));
+			pvo.setContent(multi.getParameter("content"));
+			pvo.setImage(multi.getFilesystemName("image"));
+			pvo.setPrice1(Integer.parseInt(multi.getParameter("price1")));
+			pvo.setPrice2(Integer.parseInt(multi.getParameter("price2")));
+			pvo.setPrice3(Integer.parseInt(multi.getParameter("price3")));
+			as.insertProduct(pvo);
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/productList";
 	}
 }

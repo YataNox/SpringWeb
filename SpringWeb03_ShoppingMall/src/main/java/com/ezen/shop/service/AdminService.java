@@ -25,4 +25,8 @@ public class AdminService {
 	public int getAllCount(String tablename, String fieldname, String key) {
 		return adao.getAllCount(tablename, fieldname, key);
 	}
+
+	public void insertProduct(ProductVO pvo) {
+		adao.insertProduct(pvo);
+	}
 }
