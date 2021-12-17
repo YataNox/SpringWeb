@@ -5,7 +5,7 @@
 <article>
 	<h1>주문리스트</h1>
 	<form name="frm" method="post">
-		<table style="float: right">
+		<table id="table_bar">
 			<tr>
 				<td>
 					주문자 이름 <input type="text" name="key" value="${key}">

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ezen.shop.dao.AdminDao;
+import com.ezen.shop.dto.MemberVO;
 import com.ezen.shop.dto.OrderVO;
 import com.ezen.shop.dto.Paging;
 import com.ezen.shop.dto.ProductVO;
@@ -41,5 +42,9 @@ public class AdminService {
 
 	public void saveOrderResult(String re) {
 		adao.saveOrderResult(re);		
+	}
+
+	public List<MemberVO> listMember(Paging paging, String key) {
+		return adao.listMember(paging, key);
 	}
 }

@@ -5,7 +5,7 @@
 <article>
 	<h1>상품리스트</h1>
 	<form name="frm" method="post">
-		<table>
+		<table id="table_bar">
 			<tr>
 				<td width="642">상품명<input type="text" name="key" value="${key}">
 				<input class="btn" type="button" name="btn_search" value="검색" onclick="go_search();">
