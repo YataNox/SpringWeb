@@ -104,6 +104,7 @@ public class ProductDao {
 				pvo.setName(rs.getString("name"));
 				pvo.setPrice1(rs.getInt("price1"));
 				pvo.setPrice2(rs.getInt("price2"));
+				pvo.setPrice3(rs.getInt("price3"));
 				pvo.setKind(rs.getString("kind"));
 				pvo.setImage(rs.getString("image"));
 				pvo.setUseyn(rs.getString("useyn"));
