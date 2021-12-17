@@ -18,6 +18,7 @@ import com.ezen.shop.dto.MemberVO;
 import com.ezen.shop.dto.OrderVO;
 import com.ezen.shop.dto.Paging;
 import com.ezen.shop.dto.ProductVO;
+import com.ezen.shop.dto.QnaVO;
 import com.ezen.shop.service.AdminService;
 import com.ezen.shop.service.ProductService;
 import com.ezen.shop.service.QnaService;
@@ -320,6 +321,60 @@ public class AdminController {
 			request.setAttribute("key", key);
 			mav.addObject("memberList", memberList);
 			mav.setViewName("admin/member/memberList");
+		}
+		return mav;
+	}
+	
+	@RequestMapping(value="/adminQnaList")
+	public ModelAndView adminQnaList(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = request.getSession();
+		String id = (String)session.getAttribute("workId");
+		if(id == null)
+			mav.setViewName("redirect:/admin");
+		else {
+			int page = 1;
+			if(request.getParameter("first") != null && request.getParameter("first").equals("y")) {
+				page = 1;
+				session.removeAttribute("page");
+			}
+			else if(request.getParameter("page") != null) {
+				page = Integer.parseInt(request.getParameter("page"));
+				session.setAttribute("page", page);
+			}else if(session.getAttribute("page") != null) {
+				page = (Integer)session.getAttribute("page");
+			}else {
+				page = 1;
+				session.removeAttribute("page");
+			}
+			
+			String key = "";
+			if(request.getParameter("first") != null && request.getParameter("first").equals("y")) {
+				key = "";
+				session.removeAttribute("page");
+			}
+			else if(request.getParameter("key") != null) {
+				key = request.getParameter("key");
+				session.setAttribute("key", key);
+			}else if(session.getAttribute("key") != null) {
+				key = (String)session.getAttribute("key");
+			} else {
+				session.removeAttribute("key");
+				key = "";
+			}
+			
+			Paging paging = new Paging();
+			paging.setPage(page);
+			
+			int count = as.getAllCount("qna", "subject", key);
+			paging.setTotalCount(count);
+			
+			List<QnaVO> qnaList = as.listQna(paging, key);
+			
+			request.setAttribute("paging", paging);
+			request.setAttribute("key", key);
+			mav.addObject("qnaList", qnaList);
+			mav.setViewName("admin/qna/qnaList");
 		}
 		return mav;
 	}

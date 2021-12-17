@@ -13,6 +13,7 @@ import com.ezen.shop.dto.MemberVO;
 import com.ezen.shop.dto.OrderVO;
 import com.ezen.shop.dto.Paging;
 import com.ezen.shop.dto.ProductVO;
+import com.ezen.shop.dto.QnaVO;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 @Repository
@@ -162,6 +163,32 @@ private JdbcTemplate template;
 				mvo.setIndate(rs.getTimestamp("indate"));
 				mvo.setUseyn(rs.getString("useyn"));
 				return mvo;
+			}
+		}, key, paging.getStartNum(), paging.getEndNum());
+		
+		return list;
+	}
+
+	public List<QnaVO> listQna(Paging paging, String key) {
+		String sql = "select * from ("
+				+ "select * from ("
+				+ "select rownum as rn, q.* from "
+				+ "((select * from qna where subject like '%'||?||'%' order by qseq desc) q)"
+				+ ") where rn >= ?"
+				+ ") where rn <= ?";
+		
+		List<QnaVO> list = template.query(sql, new RowMapper<QnaVO>() {
+			@Override
+			public QnaVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+				QnaVO qvo = new QnaVO();
+				qvo.setQseq(rs.getInt("qseq"));
+				qvo.setId(rs.getString("id"));
+				qvo.setSubject(rs.getString("subject"));
+				qvo.setContent(rs.getString("content"));
+				qvo.setReply(rs.getString("reply"));
+				qvo.setRep(rs.getString("rep"));
+				qvo.setIndate(rs.getTimestamp("indate"));
+				return qvo;
 			}
 		}, key, paging.getStartNum(), paging.getEndNum());
 		

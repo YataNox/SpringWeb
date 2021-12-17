@@ -10,6 +10,7 @@ import com.ezen.shop.dto.MemberVO;
 import com.ezen.shop.dto.OrderVO;
 import com.ezen.shop.dto.Paging;
 import com.ezen.shop.dto.ProductVO;
+import com.ezen.shop.dto.QnaVO;
 
 @Service
 public class AdminService {
@@ -46,5 +47,9 @@ public class AdminService {
 
 	public List<MemberVO> listMember(Paging paging, String key) {
 		return adao.listMember(paging, key);
+	}
+
+	public List<QnaVO> listQna(Paging paging, String key) {
+		return adao.listQna(paging, key);
 	}
 }
