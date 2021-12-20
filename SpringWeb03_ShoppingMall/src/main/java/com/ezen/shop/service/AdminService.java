@@ -52,4 +52,8 @@ public class AdminService {
 	public List<QnaVO> listQna(Paging paging, String key) {
 		return adao.listQna(paging, key);
 	}
+
+	public void updateQna(QnaVO qvo) {
+		adao.updateQna(qvo);
+	}
 }

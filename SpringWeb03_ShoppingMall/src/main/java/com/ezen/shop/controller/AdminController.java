@@ -390,4 +390,21 @@ public class AdminController {
 		
 		return mav;
 	}
+	
+	@RequestMapping(value="/adminQnaRepsave")
+	public String adminQnaRepsave(@RequestParam("reply") String reply, @RequestParam("qseq") int qseq) {
+		QnaVO qvo = new QnaVO();
+		qvo.setQseq(qseq);
+		qvo.setReply(reply);
+		
+		as.updateQna(qvo);
+		return "redirect:/adminQnaDetail?qseq=" + qseq;
+	}
+	
+	@RequestMapping(value="/adminLogout")
+	public String adminlogout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		return "redirect:/";
+	}
 }
